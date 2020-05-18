@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>github</title>
+</head>
+<body>
+    <h1>Github API</h1>
+    <p>1. Log in to Github and go to Settinga->Developer 
+        Settings-> Personal Access Tokens</p>   
+    <p>2. Generate a Token (check "repo") and replace the token in this file's HTML code</p>
+    <p>3. Optionally replace URLs of the target repository/issue</p>
+    
+    <div>
+        <label for="title">Issue Title</label><br>
+        <input type="text" id="title" value="There's a bug!"> 
+        <button id = 'btnCreateIssue'>Create Issue</button>
+    </div> 
+    
+    <div>
+        <label for="Comment">Comment Text</label><br>
+        <input type="text" id="comment" value="Nice catch, thx!"> 
+        <button id = 'btnCreateComment'>Comment</button>
+    </div>   
+
+    <div id = 'divResult'>
+    </div>
+
+    <script>
+    const btnCreateIssue = document.getElementById("btnCreateIssue")
+    
+
+    const divResult = document.getElementById("divResult")
+    btnCreateIssue.addEventListener("click", e=> createIssues())
+    btnCreateComment.addEventListener("click", e=> createComment())
+    
+    async function createIssues() {
+        const title = document.getElementById('title').value;
+        
+        const url = "https://api.github.com/repos/GitMatze/githubAPI/issues"
+        
+        const headers = {
+            "Authorization" : `Token 639959312461612273b1c4355c07042ea2b30dc7
+        }
+
+        const payLoad = {
+            title: title
+        }
+        const response = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(payLoad)
+        })
+        const result = await response.json()
+
+       const i = result;
+
+            const anchor = document.createElement("a")
+            anchor.href = i.html_url;
+            anchor.textContent = i.title;
+            divResult.appendChild(anchor)
+            divResult.appendChild(document.createElement("br"))
+ 
+    }
+
+    async function createComment() {
+        const comment = document.getElementById('comment').value;
+        
+        const url = "https://api.github.com/repos/GitMatze/githubAPI/issues/6/comments"
+        
+        const headers = {
+            "Authorization" : `Token 639959312461612273b1c4355c07042ea2b30dc7`
+        }
+
+        const payLoad = {
+            body: comment
+        }
+        const response = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(payLoad)
+        })
+        const result = await response.json()
+
+       const i = result;
+
+            const anchor = document.createElement("a")
+            anchor.href = i.html_url;
+            anchor.textContent = i.body;
+            divResult.appendChild(anchor)
+            divResult.appendChild(document.createElement("br"))
+ 
+    }    
+    </script>
+</body>
+</html>
