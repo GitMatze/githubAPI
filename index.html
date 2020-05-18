@@ -8,10 +8,10 @@
 </head>
 <body>
     <h1>Github API</h1>
-    <p>1. Log in to Github and go to Settinga->Developer 
+    <p>1. Log in to Github and go to Settings->Developer 
         Settings-> Personal Access Tokens</p>   
     <p>2. Generate a Token (check "repo") and replace the token in this file's HTML code</p>
-    <p>3. Optionally replace URLs of the target repository/issue</p>
+    <p>3. Optionally replace URLs of the target repository / issue</p>
     
     <div>
         <label for="title">Issue Title</label><br>
@@ -31,6 +31,7 @@
     <script>
     const btnCreateIssue = document.getElementById("btnCreateIssue")
     
+    const token = `Token 639959312461610073b1c4355c07042ea2b30dc6`      // Replace
 
     const divResult = document.getElementById("divResult")
     btnCreateIssue.addEventListener("click", e=> createIssues())
@@ -42,7 +43,7 @@
         const url = "https://api.github.com/repos/GitMatze/githubAPI/issues"
         
         const headers = {
-            "Authorization" : `Token 639959312461612273b1c4355c07042ea2b30dc7
+            "Authorization" : token
         }
 
         const payLoad = {
@@ -71,7 +72,7 @@
         const url = "https://api.github.com/repos/GitMatze/githubAPI/issues/6/comments"
         
         const headers = {
-            "Authorization" : `Token 639959312461612273b1c4355c07042ea2b30dc7`
+            "Authorization" : token
         }
 
         const payLoad = {
